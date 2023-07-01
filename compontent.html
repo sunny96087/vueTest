@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{test}}
+
+      <btn-compontent v-bind:name="1"></btn-compontent>
+      <btn-compontent v-bind:name="2"></btn-compontent>
+      <btn-compontent v-bind:name="3"></btn-compontent>
+      <btn-compontent v-bind:name="4"></btn-compontent>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const App = Vue.createApp({
+        data() {
+          return {
+            test: "123",
+          };
+        },
+      });
+
+      App.component("btn-compontent", {
+        props: ["name"],
+        template: `
+        <button>123</button>
+        `,
+      });
+
+      App.mount("#app");
+    </script>
+  </body>
+</html>
+<style></style>

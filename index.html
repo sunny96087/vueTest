@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>index</title>
+  </head>
+  <body>
+    <div id="app">
+      <h6>{{name}}</h6>
+      <p
+        :style="{
+        color: work? 'red':'blue'
+      }"
+      >
+        {{work? '工作中':'休息'}}
+      </p>
+
+      <p :class="{'green':work}">  <!-- green 是 class name / :work 值是 true 則執行前面的 class  -->
+        {{work? '工作中':'休息'}}</p>
+
+      <a :href="link" target="_blank">google</a>
+      <img :src="img" :alt="name" />
+      <div
+        :style="{
+        height:'20rem',
+        backgroundImage:'url(./img/01.jpg)',  //img 相關的使用 '' 
+        backgroungSize:'contain'
+      }"
+      ></div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            name: "🐸", //string
+            work: true, //boolean
+            count: 0, //number
+            skill: ["html", "css", "js"], //Array
+            toDolist: {
+              //object
+              test: "",
+              complete: true,
+            },
+            status: null, //null
+            img: "./img/01.jpg",
+            link: "https://google.com",
+          };
+        },
+      }).mount("#app");
+
+      const array = [];
+      const object = {};
+    </script>
+  </body>
+</html>
+<style>
+  img {
+    height: 5rem;
+  }
+
+  .green {
+    color: green;
+  }
+</style>

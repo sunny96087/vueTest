@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-for</title>
+  </head>
+  <body>
+    <div id="app">
+        <!-- v-for=" 變數 in 物件/陣列 " -> 可印出陣列內的項目 -->
+        <!-- item 可自行命名 -->
+        <div v-for="item in skill">{{item}}</div>
+
+        <ul>
+            <li v-for="item in 5">{{item}}</li>
+        </ul>
+
+        <!-- === -->
+        <div v-for="item in status">{{item}}</div>
+
+        
+        
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            // Array *
+            skill: ["html", "css", "js"],
+            // object
+            status:{
+                head:'1',
+                body:'2',
+                foot:'3'
+            },
+            // Array[ object ] *
+            animal:[
+                {
+                    name:'🦢',
+                    color:'red'
+                },
+                {
+                    name:'🦞',
+                    color:'yellow'
+                }
+            ]
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-computed</title>
+  </head>
+  <body>
+    <div id="app">
+      興趣
+      <ul>
+        <li v-for="(item, index) in interest" :key="item">
+          {{index + 1}}. {{item}}
+          <button @click="remove(index)">Ｘ</button>
+        </li>
+      </ul>
+
+      <input type="text" v-model="interestText" />
+      <button @click="resetInput">Ｘ</button>
+      <button @click="add" :disabled="addDisable">新增({{sec}})</button>
+      <button @click="reset">清空</button>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            interest: ["swim", "jog", "run", "jump"],
+            interestText: "",
+            addDisable: false,
+            sec: 5,
+            timer: 1000,
+          };
+        },
+
+        computed: {
+          interestCount() {
+            return this.interest.length;
+          },
+        },
+
+        methods: {
+          add() {
+            if (this.interestText === "") {
+              // 若 input 是空字串, 則不會新增
+              alert("X");
+            } else {
+              this.interest.push(this.interestText);
+              this.resetInput(); // 讓 input 新增後, 清除 input 內的文字
+
+              this.addDisable = true;
+            }
+          },
+          reset() {
+            this.interest = [];
+          },
+          resetInput() {
+            this.interestText = "";
+          },
+          remove(itemIndex) {
+            // console.log(index);
+            this.interest.splice(itemIndex, 1);
+          },
+          reserInterval() {
+            if (this.timer) {
+              clearInterval(this.timer);
+            }
+          },
+        },
+
+        // BUG
+        watch: {
+          addDisable(newVal) {
+            if (newVal) {
+              this.resetInterval();
+              this.timer = setInterval(() => {
+                if (this.sec === 0) {
+                  this.reserInterval();
+                  this.sec = 5;
+                  this.addDisable = false;
+                } else {
+                  this.sec -= 1;
+                }
+                console.log(this.sec);
+              }, 1000);
+            }
+          },
+
+          interestText(newVal, oldVal) {
+            console.log(newVal);
+          },
+          insterest: (newVal, oldVal) => {
+            if (newVal.length > 5) alert("太多囉！");
+          },
+          deep: true,
+        },
+      }).mount("#app");
+      // debugger;
+    </script>
+  </body>
+</html>

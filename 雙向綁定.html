@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="name" />
+      <input type="number" v-model="age" />
+      <input type="checkbox" v-model="toggle" />
+
+      <input type="color" v-model="color" />
+
+      <textarea v-model="message" cols="30" rows="10"></textarea>
+
+      <!-- 需要寫 Value -->
+      <input type="radio" v-model="picked" :value="true" />
+      <input type="radio" v-model="picked" :value="false" />
+
+      <select v-model="blood">
+        <option value="">select</option>
+        <option v-for="item in bloodOption" :key="item.key" :value="item.key" :disabled="item.disabled">{{item}}</option>
+      </select>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            name: "ingrid",
+            age: 1,
+            toggle: false,
+            picked: "",
+            color: "#ffffff",
+            message: "",
+            blood: null,
+            // bloodOption: ['A', 'B', 'AB', 'O'],
+            bloodOption: [
+              { key:null, value:'select', disabled: false},
+              { key:1, value:'A', disabled: false},
+              { key:2, value:'B', disabled: false},
+              { key:3, value:'AB', disabled: false},
+              { key:4, value:'O', disabled: true},
+            ],
+          };
+        },
+        methods: {
+          handle(e) {
+            // console.log(e.taget.value);
+            this.test = e.taget.value;
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
+<style></style>

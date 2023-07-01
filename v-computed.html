@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-computed</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 🧀{{cheese}}  -->
+      🧀<input type="text" v-model="cheese" /><br />
+      <!-- 🥩{{beef}}  -->
+      🥩<input type="text" v-model="beef" /><br />
+      <!-- 🍔{{ham}} -->
+
+      <p>🍔 {{ham}}</p>
+
+      <p :style="{color:color}">{{errorMsg}}</p>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            cheese: 10, // cheer 數量
+            beef: 5, // beef 數量
+          };
+        },
+
+        computed: {
+          // 計算以後的 data
+          ham() {
+            const basicCount = this.beef / 2;
+            //return this.cheese > basicCount ? basicCount : this.cheese
+            if (this.cheese > basicCount) {
+              return basicCount;
+            } else {
+              return this.cheese;
+            }
+          },
+          errorMsg() {
+            return this.ham === 0 ? "關店" : "Open";
+          },
+          color() {
+            // return `#${this.ham}${this.ham}${this.ham*2}`;
+            return `rgba(${this.beef}${this.cheese}${this.ham},0.${this.ham})`;
+          },
+          size() {
+            return `${this.beef} px`;
+          },
+        },
+      }).mount("#app");
+      debugger;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-for</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="searchText" placeholder="請輸入" />
+      {{searchText}}
+
+      <hr />
+
+      <div
+      v-for="(itemValue, itemIndex) in skill"
+      :key="itemIndex"
+      >
+    </div>
+
+<!-- 
+      <div v-for="searchText == ''? true: itemValue === searchText :key="itemIndex">
+
+        <template v-if="itemIndex%2 === 0"
+          >{{itemIndex + 1}}.{{itemValue}}</template
+        >
+      </div> -->
+      <hr />
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            // Array *
+            searchText: "",
+            skill: ["html", "css", "js"],
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
+<style>
+  input {
+    width: 300px;
+    height: 0px;
+    padding: 20px;
+  }
+</style>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-for</title>
+  </head>
+  <body>
+    <div id="app">
+      {{test}}
+      <div v-if="test" class="box">1</div>
+      <div v-else class="box">2</div>
+
+      <div v-show="test === true" class="box">true</div>
+
+      <transition>
+        <div v-show="toggle" class="box">switch</div>
+      </transition>
+
+      <button @click="toggle = !toggle">😉</button>
+
+      <hr />
+      <div class="container">
+        <transition>
+          <div v-if="test === 1" class="box">1</div>
+          <div v-else-if="test === 2" class="box">2</div>
+          <div v-else-if="test === 3" class="box">3</div>
+          <div v-else class="box">預設</div>
+        </transition>
+      </div>
+
+      <button v-on:click="test = test - 1">-</button>
+      <button v-on:click="test = test + 1">+</button>
+      <hr />
+      <button @click="test -= 1">-</button>
+      <button @click="test += 1">+</button>
+      {{test}}
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            toggle: true,
+            test: 1,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
+
+<style>
+  .box {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1rem;
+    color: #fff;
+    background-color: #222;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+  }
+</style>

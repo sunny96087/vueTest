@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-computed</title>
+  </head>
+  <body>
+    <div id="app">
+      興趣
+      <ul>
+        <li v-for="(item, index) in interest" :key="item">
+          {{index + 1}}. {{item}}
+
+          <button @click="remove(index)">Ｘ</button>
+          <!-- 要傳參數, 所以帶個小括號 -->
+        </li>
+      </ul>
+      <!-- 
+        v-for="(item, index) in interest" 印出陣列, item 抓 key, index 抓 索引值
+        :key="item" （？
+        {{index}} 呼叫索引值, ＋1 可以當作編號 
+        {{item}} 呼叫 key 值 -->
+
+      <input type="text" v-model="interestText" />
+      <button @click="resetInput">Ｘ</button>
+      <button @click="add">新增</button>
+      <button @click="reset">清空</button>
+      <!-- @click="interest = [] " 一般不會這樣寫, 很醜 -->
+
+      興趣數量：{{interestCount}}
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            interest: ["swim", "jog", "run", "jump"],
+            interestText: "",
+          };
+        },
+
+        computed: {
+          interestCount() {
+            return this.interest.length;
+          },
+        },
+
+        methods: {
+          add() {
+            if (this.interestText === "") {
+              // 若 input 是空字串, 則不會新增
+              alert("X");
+            } else {
+              this.interest.push(this.interestText);
+              this.resetInput(); // 讓 input 新增後, 清除 input 內的文字
+            }
+          },
+          reset() {
+            this.interest = [];
+          },
+          resetInput() {
+            this.interestText = "";
+          },
+          remove(itemIndex) {
+            // console.log(index);
+            this.interest.splice(itemIndex, 1);
+          },
+        },
+      }).mount("#app");
+      debugger;
+    </script>
+  </body>
+</html>

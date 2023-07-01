@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      興趣數量：{{interestCount}}
+      <ul>
+        <li v-for="(item, index) in interest" :key="index">
+          {{index+1}}. {{item}}
+          <button @click="remove(index, item)">X</button>
+        </li>
+      </ul>
+      <input type="text" v-model="interestText" />
+      <!-- <button @click="resetInput">X</button> -->
+      <button @click="add" :disabled="addDisable">新增({{sec}})</button>
+      <!-- <button @click="reset">清空興趣</button> -->
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            interest: ["聽", "聽音樂", "不要在家裡"],
+            interestText: "",
+            addDisable: false,
+            sec: 5,
+            timer: null,
+          };
+        },
+        computed: {
+          interestCount() {
+            return this.interest.length;
+          },
+        },
+        methods: {
+          add() {
+            if (this.interestText === "") {
+              alert("X");
+            } else {
+              this.interest.push(this.interestText);
+              this.resetInput();
+              this.addDisable = true;
+            }
+          },
+          reset() {
+            this.interest = [];
+          },
+          resetInput() {
+            this.interestText = "";
+          },
+          remove(itemIndex, item) {
+            this.interest.splice(itemIndex, 1);
+          },
+          resetInterval() {
+            if (this.timer) {
+              clearInterval(this.timer);
+            }
+          },
+        },
+        watch: {
+          addDisable(newVal) {
+            if (newVal) {
+              this.resetInterval();
+              this.timer = setInterval(() => {
+                if (this.sec === 0) {
+                  this.resetInterval();
+                  this.sec = 5;
+                  this.addDisable = false;
+                } else {
+                  this.sec -= 1;
+                }
+              }, 1000);
+            }
+          },
+          //For陣列或物件
+          // 'interest': {
+          //     handler: (newVal, oldVal)=> {
+          //         if(newVal.length > 5)alert('太多囉')
+          //     },
+          //     deep: true
+          // },
+          interestCount(newVal) {
+            if (newVal > 5) alert("太多囉");
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
+<style></style>
